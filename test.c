@@ -5,33 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 05:08:33 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/08 05:52:53 by akajjou          ###   ########.fr       */
+/*   Created: 2024/03/10 16:45:22 by akajjou           #+#    #+#             */
+/*   Updated: 2024/03/10 18:31:22 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../solong.h"
+#include "solong.h"
 
-char	**map_checker(t_obj *obgect)
+void	left_walke(t_obj *obj)
 {
-	char	*str1;
-	int		fd;
-	char	*str2;
-
-	str2 = 0;
-	fd = open("maps/map.ber", O_RDWR);
-	str1 = get_next_line(fd);
-	while (str1)
+	if (obj->str[obj->player_y][obj->player_x - 1] == '0'
+	|| obj->str[obj->player_y][obj->player_x - 1] == 'C')
 	{
-		str2 = ft_strjoin(str2, str1);
-		free(str1);
-		str1 = get_next_line(fd);
-	}
-	free(str1);
-	if (component_checker(str2, obgect) == 1)
-	{
-		printf("ERROR : the map is not valid");
-		exit(1);
-	}
-	return (ft_split(str2, '\n'));
+		if (obj->str[obj->player_y][obj->player_x - 1] == 'C')
+		{
+			obj->str[obj->player_y][obj->player_x - 1] = '0';
+			obj->collectible--;
+		}
+		obj->img_add = mlx_xpm_file_to_image(obj->mlx_add , "images/spaces.xpm",
+					&obj->img_width, &obj->img_height);
+		mlx_put_image_to_window(obj->mlx_add, obj->win_add, obj->img_add,
+		    		obj->player_x * 64, obj->player_y * 64);
+        obj->player_x--;
+        obj->img_add = mlx_xpm_file_to_image(obj->mlx_add , "images/player.xpm",
+					&obj->img_width, &obj->img_height);
+		mlx_put_image_to_window(obj->mlx_add, obj->win_add, obj->img_add,
+		    		obj->player_x * 64, obj->player_y * 64);
+        ft_printf("%d mouvement .\n",obj->a++ + 1);
+    }
+    else if (obj->str[obj->player_y][obj->player_x - 1] == 'E' 
+    && obj->collectible == 0)
+      {
+		ft_free(obj->str);
+	    exit(1);
+	  }
 }

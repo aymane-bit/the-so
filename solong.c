@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:26:20 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/08 12:33:35 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/11 13:14:45 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,20 @@ char	*map_drawer(char **str, int d, int i, t_obj *obj)
 	else if (str[d][i] == '1' && i == 0 && d == 0)
 		return ("images/leftup.xpm");
 	else if (str[d][i] == '1' && d == 0)
-		return ("images/sleep.xpm");
+		return ("images/slepborder.xpm");
 	else if (str[d][i] == '1' && d == obj->map_lenght - 1)
-		return ("images/sleep.xpm");
+		return ("images/slepborder.xpm");
 	else if (str[d][i] == '1' && (i == 0 || i == obj->map_width - 1))
-		return ("images/wakef.xpm");
+		return ("images/borderwallup.xpm");
 	else if (str[d][i] == '1')
-		return ("images/centerwall.xpm");
+		return ("images/wall.xpm");
 	else if (str[d][i] == '0')
-		return ("spaces.xpm");
+		return ("images/spaces.xpm");
 	else if (str[d][i] == 'C')
-		return ("collect.xpm");
+		return ("images/collect.xpm");
 	else if (str[d][i] == 'P')
-		return ("player.xpm");
-	else if (str[d][i] == 'E')
-		return ("dor.xpm");
+		return ("images/player.xpm");
+	return ("images/exit.xpm");
 }
 
 void	visual_start(char **str, t_obj *obj)
@@ -61,10 +60,9 @@ void	visual_start(char **str, t_obj *obj)
 			obj->i++;
 		}
 		obj->i = 0;
-	obj->d++;
+		obj->d++;
 	}
-	player_mover(str,obj,&lafin);
-	// mlx_loop(lafin.mlx_ptr);
+	player_mover(str, obj, &lafin);
 }
 
 void	position_player(t_obj *obgect)
@@ -124,13 +122,11 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		if (ber_checker(argv[1]) == 1)
-			return (printf("ERROR : the extension is not .ber\n"));
+			return (ft_printf("ERROR : the extension is not .ber\n"));
+		// exit(1);
 		object.str = map_checker(&object);
 		position_player(&object);
 		visual_start(object.str, &object);
-		
-		ft_printf("alll good ser \n");
-		
 	}
 	else
 		return (ft_printf("ERROR : check the format [<./solong> <map>]"), 0);

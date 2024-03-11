@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:45:19 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/08 05:55:10 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/11 13:12:49 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ char	**map_checker(t_obj *obgect)
 	int		fd;
 	char	*str2;
 
+	str2 = NULL;
 	str2 = 0;
 	fd = open("maps/map.ber", O_RDWR);
 	str1 = get_next_line(fd);
@@ -139,10 +140,11 @@ char	**map_checker(t_obj *obgect)
 		str1 = get_next_line(fd);
 	}
 	free(str1);
+	// free(str2);
+		// exit(1);
 	if (component_checker(str2, obgect) == 1)
 	{
 		ft_printf("ERROR : the map is not valid");
-		exit(1);
 	}
 	return (ft_split(str2, '\n'));
 }

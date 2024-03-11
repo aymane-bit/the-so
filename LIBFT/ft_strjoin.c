@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 20:09:42 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/05 19:25:16 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/10 18:42:06 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_str = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
 	if (new_str == NULL)
 	{
-		return (NULL);
+		return (free(s1),free(s2,free(new_str),NULL);
 	}
 	ft_strcpy(new_str, st1);
 	ft_strlcat(new_str, st2, s1_len + s2_len + 1);
-	return (new_str);
+	return (free(s1),free(s2),new_str);
 }

@@ -11,6 +11,7 @@ typedef struct	s_data {
 
 typedef struct s_obj
 {
+	int a;
 	int space;
 	int wall;
 	int collectible;
@@ -34,10 +35,12 @@ typedef struct s_obj
 
 # include <mlx.h>
 # include <stdio.h>
+# include <time.h>
 # include <unistd.h>
 # include <string.h>
 # include "LIBFT/libft.h"
 
+void ft_free(char **str);
 void    player_mover(char **str,t_obj *obj,t_data *lafin);
 char	**map_checker(t_obj *obgect);
 int	obj_checker(char c, t_obj *obj);
