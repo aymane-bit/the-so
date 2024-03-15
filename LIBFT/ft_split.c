@@ -6,13 +6,13 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 01:53:50 by akajjou           #+#    #+#             */
-/*   Updated: 2024/02/19 11:22:27 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:09:49 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**free_array(char **ptr, int i)
+char	**free_array(char **ptr, int i)
 {
 	while (i >= 0)
 	{

@@ -1,50 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 10:43:56 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/15 16:28:06 by akajjou          ###   ########.fr       */
+/*   Created: 2024/03/15 21:49:03 by akajjou           #+#    #+#             */
+/*   Updated: 2024/03/15 21:57:14 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../solong.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_exit(t_obj *obj)
 {
-	char	j;
-
-	j = (char)c;
-	while (*s != j)
-	{
-		if (*s == '\0')
-		{
-			return (0);
-		}
-		s++;
-	}
-	return ((char *)s);
+	ft_printf("%d mouvement .\n", obj->a++ + 1);
+	mlx_destroy_window(obj->mlx_add, obj->win_add);
+	mlx_destroy_display(obj->mlx_add);
+	free(obj->mlx_add);
+	free_array(obj->str, obj->map_lenght);
+	ft_printf("you won \n");
+	exit(1);
 }
 
-int ft_strschr(char **str, char c)
+int	close_button_handler(void *object)
 {
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (str[j])
-	{
-		i = 0;
-		while (str[j][i])
-		{
-			if (str[j][i] == c)
-				return (1);
-			i++;
-		}
-		j++;
-	}
+	ft_exit(object);
 	return (0);
 }

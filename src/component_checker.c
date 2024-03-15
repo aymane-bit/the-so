@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:45:19 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/11 13:12:49 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:44:13 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,28 +123,31 @@ int	component_checker(char *str, t_obj *obj)
 		return (1);
 }
 
-char	**map_checker(t_obj *obgect)
+int	map_checker(t_obj *obgect)
 {
 	char	*str1;
 	int		fd;
 	char	*str2;
+	char	*tmp;
 
-	str2 = NULL;
 	str2 = 0;
 	fd = open("maps/map.ber", O_RDWR);
 	str1 = get_next_line(fd);
 	while (str1)
 	{
-		str2 = ft_strjoin(str2, str1);
+		tmp = ft_strjoin(str2, str1);
+		free(str2);
+		str2 = tmp;
 		free(str1);
 		str1 = get_next_line(fd);
 	}
-	free(str1);
-	// free(str2);
-		// exit(1);
 	if (component_checker(str2, obgect) == 1)
 	{
+		free(str2);
 		ft_printf("ERROR : the map is not valid");
+		exit (1);
 	}
-	return (ft_split(str2, '\n'));
+	obgect->str2 = str2;
+	obgect->str = ft_split(str2, '\n');
+	return (0);
 }
