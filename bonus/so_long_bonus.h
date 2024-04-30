@@ -1,44 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solong.h                                           :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:00:19 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/15 22:01:37 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/21 00:04:44 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOLONG_H
-# define SOLONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
-# include "LIBFT/libft.h"
+# include "../LIBFT/libft.h"
 # include <mlx.h>
-# include <stdio.h>
-# include <string.h>
-# include <time.h>
 # include <unistd.h>
-
-typedef struct s_data
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	int		img_width;
-	int		img_height;
-}			t_data;
-
-typedef struct s_ints
-{
-	int		i;
-	int		x;
-	int		p;
-}			t_ints;
 
 typedef struct s_obj
 {
 	int		a;
+	char	*filename;
+	int		exit_x;
+	int		exit_y;
 	int		space;
 	int		wall;
 	int		collectible;
@@ -62,13 +46,26 @@ typedef struct s_obj
 	char	**str;
 }			t_obj;
 
+void		flood_fill(t_obj *obj);
+void		position_exit(t_obj *obgect);
+void		enemy_killer_up_helper(t_obj *obj, int d);
+void		enemy_killer_down_helper(t_obj *obj, int d);
+void		enemy_killer_left_helper(t_obj *obj, int d);
+void		enemy_killer_right_helper(t_obj *obj, int d);
+void		enemy_killer_down(t_obj *obj);
+void		enemy_killer_left(t_obj *obj);
+void		enemy_killer_up(t_obj *obj);
+void		enemy_killer_right(t_obj *obj);
+int			map_right_down(int d, int i, t_obj *obj);
+void		enemy_killer(t_obj *obj);
+void		ft_player_animation(t_obj *obj);
+void		position_exit(t_obj *obgect);
+int			handle_key_press(int keycode, void *param);
 void		left_walke(t_obj *obj);
 void		right_walke(t_obj *obj);
 void		up_walke(t_obj *obj);
 void		down_walke(t_obj *obj);
-int			ft_exit(t_obj *obj);
 int			close_button_handler(void *object);
-int			ft_strschr(char **str, char c);
 void		flood_fill(t_obj *obgect);
 int			ft_exit(t_obj *obj);
 char		**free_array(char **ptr, int i);

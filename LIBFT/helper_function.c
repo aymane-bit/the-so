@@ -6,13 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 03:17:32 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/06 16:38:47 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/19 03:12:07 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-
 
 static void	mint(char *s, int *n)
 {

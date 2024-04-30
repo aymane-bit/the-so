@@ -6,65 +6,61 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:45:19 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/15 14:44:13 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/21 00:03:23 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../solong.h"
+#include "../so_long.h"
 
 int	border_checker(char *str)
 {
-	int		fd;
-	char	*str2;
-	int		i;
+	int	i;
 
 	i = 0;
-	fd = open("maps/map.ber", O_RDWR);
-	str2 = get_next_line(fd);
-	while (str2[i] != '\n')
+	while (str[i] != '\n')
 	{
-		if (str2[i] != '1')
-			return (free(str2), free(str), 1);
+		if (str[i] != '1')
+			return (free(str), 1);
 		i++;
 	}
 	i = 0;
 	while (str[++i])
 	{
 		if (str[i] == '\n' && (str[i + 1] != '1' || str[i - 1] != '1'))
-			return (free(str2), free(str), 1);
+			return (free(str), 1);
 	}
 	if (str[i - 1] != '1')
-		return (free(str2), free(str), 1);
+		return (free(str), 1);
 	while (str[--i] != '\n')
 		if (str[i] != '1')
-			return (free(str2), free(str), 1);
-	return (free(str2), 0);
+			return (free(str), 1);
+	return (0);
 }
 
-int	map_linechecker(void)
+int	map_linechecker(char *str1, t_obj *obj)
 {
-	char	*str1;
-	char	*str2;
-	int		fd;
+	char	**str;
 	int		i;
+	int		a;
+	int		d;
 
-	fd = open("maps/map.ber", O_RDWR);
-	str1 = get_next_line(fd);
-	str2 = get_next_line(fd);
-	i = ft_strlen(str1) - 1;
-	while (str2)
+	if (str1[0] == '\n')
+		return (1);
+	str = ft_split(str1, '\n');
+	i = 1;
+	d = ft_strlen(str[0]) - 1;
+	while (str[i])
 	{
-		if (!comp(str1, str2))
+		a = 0;
+		while (str[i][a])
 		{
-			ft_printf("ERROR : map is not valid (the line are not equal)\n");
-			return (free(str1), free(str2), 1);
+			if (str[i][a + 1] == '\0' && d != a)
+				return (free_array(str, obj->map_lenght), 1);
+			a++;
 		}
-		if (str2[i] != '\n')
-			break ;
-		free(str2);
-		str2 = get_next_line(fd);
+		i++;
 	}
-	return (free(str1), free(str2), 0);
+	return (free_array(str, i), 0);
 }
 
 int	rectangular_checker(char *str, t_obj *obj)
@@ -96,7 +92,7 @@ int	rectangular_checker(char *str, t_obj *obj)
 
 int	component_checker(char *str, t_obj *obj)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while ((str[i] == '1' || str[i] == '0' || str[i] == 'E' || str[i] == 'C'
@@ -107,11 +103,12 @@ int	component_checker(char *str, t_obj *obj)
 	}
 	if (obj->exit != 1 || obj->player != 1 || obj->collectible == 0)
 	{
+		free(str);
 		ft_printf("ERROR : the map is not valid (check the P or C or the E)\n");
 		exit(1);
 	}
-	if (rectangular_checker(str, obj) == 1 || map_linechecker() == 1)
-		exit(1);
+	if (rectangular_checker(str, obj) == 1 || map_linechecker(str, obj) == 1)
+		return (free(str), 1);
 	if (border_checker(str) == 1)
 	{
 		ft_printf("ERROR : the map is not valid (check the border)\n");
@@ -119,8 +116,7 @@ int	component_checker(char *str, t_obj *obj)
 	}
 	if (i == ft_strlen(str) && str[i - 1] != '\n')
 		return (0);
-	else
-		return (1);
+	return (free(str), 1);
 }
 
 int	map_checker(t_obj *obgect)
@@ -131,8 +127,10 @@ int	map_checker(t_obj *obgect)
 	char	*tmp;
 
 	str2 = 0;
-	fd = open("maps/map.ber", O_RDWR);
+	fd = open(obgect->filename, O_RDWR);
 	str1 = get_next_line(fd);
+	if (!str1)
+		exit(1);
 	while (str1)
 	{
 		tmp = ft_strjoin(str2, str1);
@@ -143,11 +141,9 @@ int	map_checker(t_obj *obgect)
 	}
 	if (component_checker(str2, obgect) == 1)
 	{
-		free(str2);
 		ft_printf("ERROR : the map is not valid");
-		exit (1);
+		exit(1);
 	}
-	obgect->str2 = str2;
 	obgect->str = ft_split(str2, '\n');
-	return (0);
+	return (obgect->str2 = str2, 0);
 }

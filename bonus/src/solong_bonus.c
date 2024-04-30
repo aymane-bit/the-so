@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solong.c                                           :+:      :+:    :+:   */
+/*   solong_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:26:20 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/15 21:59:22 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/20 23:49:27 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "solong.h"
+#include "../so_long_bonus.h"
 
 char	*map_drawer(int d, int i, t_obj *obj)
 {
 	if (obj->str[d][i] == '1' && i == 0 && d == obj->map_lenght - 1)
 		return ("images/leftdown.xpm");
-	else if (obj->str[d][i] == '1' && i == obj->map_width - 1
-			&& d == obj->map_lenght - 1)
+	else if (map_right_down(d, i, obj) == 0)
 		return ("images/rightdown.xpm");
 	else if (obj->str[d][i] == '1' && i == obj->map_width - 1 && d == 0)
 		return ("images/rightup.xpm");
@@ -37,6 +36,8 @@ char	*map_drawer(int d, int i, t_obj *obj)
 		return ("images/collect.xpm");
 	else if (obj->str[d][i] == 'P')
 		return ("images/player.xpm");
+	else if (obj->str[d][i] == 'X')
+		return ("images/enemy.xpm");
 	return ("images/exit.xpm");
 }
 
@@ -46,7 +47,7 @@ void	visual_start(t_obj *obj)
 
 	obj->mlx_add = mlx_init();
 	obj->win_add = mlx_new_window(obj->mlx_add, obj->map_width * 64,
-			obj->map_lenght * 64, "MiniLibX Example");
+			obj->map_lenght * 64, "SO_LONG");
 	while (obj->str[obj->d])
 	{
 		while (obj->str[obj->d][obj->i])
@@ -115,16 +116,18 @@ int	ber_checker(char *str)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
 	t_obj	object;
 
 	ft_memset(&object, 0, sizeof(object));
+	object.filename = argv[1];
 	if (argc == 2)
 	{
 		if (ber_checker(argv[1]) == 1)
 			return (ft_printf("ERROR : the extension is not .ber\n"));
 		map_checker(&object);
 		position_player(&object);
+		position_exit(&object);
+		flood_fill(&object);
 		visual_start(&object);
 	}
 	else

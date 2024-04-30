@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:27:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/06 16:39:44 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/19 03:12:29 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_putstr(char const *s)
 	write(1, s, ft_strlen(s));
 	return (ft_strlen(s));
 }
-
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

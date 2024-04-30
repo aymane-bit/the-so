@@ -6,11 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 05:46:47 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/15 21:56:54 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/21 00:03:44 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../solong.h"
+#include "../so_long.h"
 
 int	handle_key_press(int keycode, void *param)
 {
@@ -27,7 +27,7 @@ int	handle_key_press(int keycode, void *param)
 	else if (keycode == 115)
 		down_walke(obj);
 	else if (keycode == 65307)
-		ft_exit(obj);
+		ft_exit(obj, 0);
 	return (0);
 }
 

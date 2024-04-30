@@ -6,29 +6,27 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 14:23:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/03/05 14:45:33 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/03/19 03:12:46 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <stddef.h>
-# include <stdint.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdarg.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdarg.h>
+# include <stddef.h>
+# include <stdint.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-
+# include <unistd.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 7
 # endif
-
 
 typedef struct s_list
 {
